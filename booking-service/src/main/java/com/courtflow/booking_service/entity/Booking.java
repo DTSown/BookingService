@@ -36,6 +36,10 @@ public class Booking {
     @Builder.Default
     private BookingStatus status = BookingStatus.PENDING;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -45,9 +49,9 @@ public class Booking {
     private List<BookingDetail> details = new ArrayList<>();
 
     public enum BookingStatus {
-        PENDING,     // Mới tạo, chờ thanh toán cọc
-        CONFIRMED,   // Đã thanh toán / duyệt thành công
-        CANCELLED,   // Bị hủy
-        EXPIRED      // Hết thời hạn giữ chỗ
+        PENDING,     
+        CONFIRMED,   
+        CANCELLED,   
+        EXPIRED      
     }
 }
